@@ -30,7 +30,6 @@ session = requests.Session()
 loginRes = session.get(loginUrl, headers = headers, verify = False) # add verify = False by zhanglintc
 
 soup = BeautifulSoup(loginRes.text, 'html.parser')
-inputs = soup.find_all('input')
 params = {
     soup.find_all('input', {'class': 'sl'})[0].attrs['name']: username,
     soup.find_all('input', {'class': 'sl'})[1].attrs['name']: password,
