@@ -6,10 +6,27 @@
 from bs4 import BeautifulSoup
 import requests
 import requests.packages.urllib3
-import time
+import time, re
 import random
 
 requests.packages.urllib3.disable_warnings() # disable warning by zhanglintc
+
+def recognize_captcha(loginRes):
+    mc = re.search("_captcha\?once=\d+", loginRes.text)
+
+    if mc:
+        captcha = mc.group()
+        captcha_url = "https://www.v2ex.com/{0}".format(captcha)
+        pic = session.get(captcha_url)
+
+        fw = open("captcha.png", "wb")
+        fw.write(pic.content)
+        fw.close()
+
+    # TODO: send to wechat and wait response
+    wx_reponse = "wx_reponse"
+
+    return wx_reponse
 
 username = 'username'
 password = 'password'
